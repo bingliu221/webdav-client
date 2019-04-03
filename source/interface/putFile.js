@@ -3,6 +3,7 @@ const { merge } = require("../merge.js");
 const responseHandlers = require("../response.js");
 const { encodePath, prepareRequestOptions, request } = require("../request.js");
 const { fromBase64 } = require("../encode.js");
+const stream = require("stream");
 
 function getPutContentsDefaults() {
     return {
@@ -14,7 +15,11 @@ function getPutContentsDefaults() {
 }
 
 function putFileContents(filePath, data, options) {
-    const putOptions = merge(getPutContentsDefaults(), { headers: { "Content-Length": data.length } }, options || {});
+    const headers = {};
+    if (!(data instanceof stream.Readable)) {
+        headers["Content-Length"] = data.length;
+    }
+    const putOptions = merge(getPutContentsDefaults(), { headers }, options || {});
     if (putOptions.overwrite === false) {
         putOptions.headers["If-None-Match"] = "*";
     }

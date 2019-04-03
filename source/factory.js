@@ -279,7 +279,7 @@ function createClient(remoteURL, { username, password, httpAgent, httpsAgent, to
         /**
          * Write contents to a remote file path
          * @param {String} remoteFilename The path of the remote file
-         * @param {String|Buffer} data The data to write
+         * @param {String|Buffer|Stream} data The data to write
          * @param {PutOptions=} options The options for the request
          * @returns {Promise} A promise that resolves once the contents have been written
          * @memberof ClientInterface
