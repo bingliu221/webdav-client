@@ -16,7 +16,7 @@ function getPutContentsDefaults() {
 
 function putFileContents(filePath, data, options) {
     const headers = {};
-    if (!(data instanceof stream.Readable)) {
+    if (data.length) {
         headers["Content-Length"] = data.length;
     }
     const putOptions = merge(getPutContentsDefaults(), { headers }, options || {});
