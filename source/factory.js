@@ -174,6 +174,21 @@ function createClient(remoteURL, { username, password, httpAgent, httpsAgent, to
         },
 
         /**
+         * Get a readable stream of a remote file
+         * @param {String} remoteFilename The file to fetch
+         * @param {OptionsWithFormat=} options Options for the request
+         * @memberof ClientInterface
+         * @returns {Stream.Readable} A promise that resolves a readable stream of the remote file
+         * @example
+         *      // Get file stream:
+         *      const stream = await client.getFileStream("/image.png");
+         */
+        getFileStream: function getFileContents(remoteFilename, options) {
+            const getOptions = merge(baseOptions, options || {});
+            return createStream.getFileStream(remoteFilename, getOptions);
+        },
+
+        /**
          * Delete a remote file
          * @param {String} remotePath The remote path to delete
          * @param {UserOptions=} options The options for the request
