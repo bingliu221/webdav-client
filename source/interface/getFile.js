@@ -3,23 +3,11 @@ const { handleResponseCode, processResponsePayload } = require("../response.js")
 const { encodePath, prepareRequestOptions, request } = require("../request.js");
 const { fromBase64 } = require("../encode.js");
 
-function getFileContentsBuffer(filePath, options) {
+function getFileContents(filePath, options, responseType) {
     const requestOptions = {
         url: joinURL(options.remoteURL, encodePath(filePath)),
         method: "GET",
-        responseType: "arraybuffer"
-    };
-    prepareRequestOptions(requestOptions, options);
-    return request(requestOptions)
-        .then(handleResponseCode)
-        .then(res => processResponsePayload(res, res.data, options.details));
-}
-
-function getFileContentsString(filePath, options) {
-    const requestOptions = {
-        url: joinURL(options.remoteURL, encodePath(filePath)),
-        method: "GET",
-        responseType: "text"
+        responseType,
     };
     prepareRequestOptions(requestOptions, options);
     return request(requestOptions)
@@ -42,7 +30,6 @@ function getFileLink(filePath, options) {
 }
 
 module.exports = {
-    getFileContentsBuffer,
-    getFileContentsString,
-    getFileLink
+    getFileContents,
+    getFileLink,
 };
