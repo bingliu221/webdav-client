@@ -99,13 +99,14 @@ const stats = require("./interface/stat.js");
  *          console.log(contents);
  *      });
  */
-function createClient(remoteURL, { username, password, httpAgent, httpsAgent, token = null } = {}) {
+function createClient(remoteURL, { username, password, httpAgent, httpsAgent, token = null, adapter } = {}) {
     const baseOptions = {
         headers: {},
         remotePath: urlTools.extractURLPath(remoteURL),
         remoteURL,
         httpAgent,
-        httpsAgent
+        httpsAgent,
+        adapter
     };
     // Configure auth
     if (username) {

@@ -50,6 +50,9 @@ function prepareRequestOptions(requestOptions, methodOptions) {
     if (methodOptions.maxContentLength) {
         requestOptions.maxContentLength = methodOptions.maxContentLength;
     }
+    if (methodOptions.adapter) {
+        requestOptions.adapter = methodOptions.adapter
+    }
 }
 
 /**
